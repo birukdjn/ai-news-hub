@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Heart, Calendar, ExternalLink } from 'lucide-react';
-import { useFavorites } from './hooks/useFavorites';
-import LoadingSpinner from './components/LoadingSpinner';
+import { useFavorites } from '../../hooks/useFavorites';
+import LoadingSpinner from '../../components/LoadingSpinner';
 
 export default function ArticlePage() {
   const params = useParams();
