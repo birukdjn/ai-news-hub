@@ -24,17 +24,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <head>
-        <script
-          dangerouslySetInnerHTML={{ __html: `
-            try {
-              const saved = localStorage.getItem('darkMode');
-              const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
-              const shouldDark = saved !== null ? JSON.parse(saved) : prefers;
-              if (shouldDark) document.documentElement.classList.add('dark');
-              else document.documentElement.classList.remove('dark');
-            } catch {}
-          `}}
-        />
+
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

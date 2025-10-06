@@ -1,34 +1,36 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
-export function useDarkMode() {
-  const [isDark, setIsDark] = useState(false);
+const THEME = {
+  DARK: 'dark',
+  LIGHT: 'light',
+};
+
+const useTheme = () => {
+  const [theme, setTheme] = useState(THEME.LIGHT);
 
   useEffect(() => {
-    const hasClass = document.documentElement.classList.contains('dark');
-    if (hasClass) {
-      setIsDark(true);
-      return;
-    }
-    const saved = localStorage.getItem('darkMode');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const initial = saved ? JSON.parse(saved) : prefersDark;
-    setIsDark(initial);
-    document.documentElement.classList.toggle('dark', initial);
+    const storedTheme = localStorage.getItem('theme');
+    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    const initialTheme = storedTheme || (systemPrefersDark ? THEME.DARK : THEME.LIGHT);
+    setTheme(initialTheme);
   }, []);
 
-  const toggleDarkMode = () => {
-    const newValue = !isDark;
-    setIsDark(newValue);
-    localStorage.setItem('darkMode', JSON.stringify(newValue));
-    if (newValue) {
+  useEffect(() => {
+    if (theme === THEME.DARK) {
       document.documentElement.classList.add('dark');
-      document.body.classList.add('dark');
+      localStorage.setItem('theme', THEME.DARK);
     } else {
       document.documentElement.classList.remove('dark');
-      document.body.classList.remove('dark');
+      localStorage.setItem('theme', THEME.LIGHT);
     }
-  };
+  }, [theme]);
 
-  return [isDark, toggleDarkMode];
-}
+  const toggleTheme = useCallback(() => {
+    setTheme(prevTheme => (prevTheme === THEME.LIGHT ? THEME.DARK : THEME.LIGHT));
+  }, []);
+
+  return { theme, toggleTheme };
+};
+
+export default useTheme;
