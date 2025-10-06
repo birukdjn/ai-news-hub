@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Heart, Calendar, ExternalLink, Share2 } from 'lucide-react';
-import { useFavorites } from '../../../hooks/useFavorites';
+import { useFavorites } from '../../hooks/useFavorites';
 import Image from 'next/image';
 
 function decodeSlugToTitle(slug) {
