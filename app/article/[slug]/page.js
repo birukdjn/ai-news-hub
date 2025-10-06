@@ -2,8 +2,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Heart, Calendar, ExternalLink, Share2 } from 'lucide-react';
-import { useFavorites } from '../../hooks/useFavorites';
-import LoadingSpinner from '../../components/LoadingSpinner';
+import { useFavorites } from '../../../hooks/useFavorites';
+import LoadingSpinner from '../../../components/LoadingSpinner';
 import Image from 'next/image';
 
 function decodeSlugToTitle(slug) {
@@ -21,7 +21,6 @@ export default function ArticlePage() {
   const [aiSummary, setAiSummary] = useState('');
   const [aiTags, setAiTags] = useState('');
   const [aiInsight, setAiInsight] = useState('');
-  const [compareUrl, setCompareUrl] = useState('');
   const [loading, setLoading] = useState(true);
   const [summaryLoading, setSummaryLoading] = useState(false);
   const { addFavorite, removeFavorite, isFavorite } = useFavorites();
@@ -265,12 +264,4 @@ export default function ArticlePage() {
       </div>
     </div>
   );
-}
-
-export async function generateMetadata({ params }) {
-  const title = decodeURIComponent(params.slug || 'Article');
-  return {
-    title: `${title} | AI News Hub`,
-    description: 'Read the latest news with AI-powered summaries.',
-  };
 }

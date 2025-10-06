@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 
 export default function ClientHome({ initialArticles }) {
   const [articles, setArticles] = useState(initialArticles || []);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(!initialArticles?.length);
   const [page, setPage] = useState(1);
   const [error, setError] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
@@ -66,8 +66,17 @@ export default function ClientHome({ initialArticles }) {
     }
   };
 
+  // Initial load
   useEffect(() => {
-    fetchNews(searchTerm, selectedCategory, 1, false);
+    if (articles.length === 0 && !searchTerm && !selectedCategory) {
+      fetchNews('', '', 1, false);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchTerm || selectedCategory) {
+      fetchNews(searchTerm, selectedCategory, 1, false);
+    }
   }, [searchTerm, selectedCategory]);
 
   const handleToggleFavorite = (article) => {

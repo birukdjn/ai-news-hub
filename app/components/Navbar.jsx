@@ -36,7 +36,6 @@ export default function Navbar() {
       }
     };
 
-    // Close menu when route changes
     const handleRouteChange = () => {
       setIsMenuOpen(false);
     };
@@ -61,7 +60,6 @@ export default function Navbar() {
 
   const handleThemeToggle = () => {
     toggleTheme();
-    // Don't close menu when toggling theme
   };
 
   const navLinks = (
