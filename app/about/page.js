@@ -28,8 +28,8 @@ export default function AboutPage() {
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 mb-8">
             <h3 className="text-xl font-semibold mb-3 text-blue-900 dark:text-blue-100">Connect with me</h3>
             <p className="text-blue-800 dark:text-blue-200 mb-4">
-              I'm passionate about building innovative web applications and AI technologies.
-              Let's connect and build something amazing together!
+              {"I'm passionate about building innovative web applications and AI technologies."}
+              {"Let's connect and build something amazing together!"}
             </p>
             
             <div className="flex flex-wrap gap-3">
@@ -43,10 +43,18 @@ export default function AboutPage() {
               </a>
               
               <a 
-                href="mailto:birukedjn@gmail.com" 
+                href="/contact" 
+                target="_blank" 
+                rel="noopener noreferrer"
                 className="px-6 py-3 rounded-lg bg-gray-800 dark:bg-gray-700 text-white font-semibold hover:bg-gray-900 dark:hover:bg-gray-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
                 📧 Contact Me
+              </a>
+               <a 
+                href="mailto:birukedjn@gmail.com" 
+                className="px-6 py-3 rounded-lg bg-gray-800 dark:bg-gray-700 text-white font-semibold hover:bg-gray-900 dark:hover:bg-gray-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
+              >
+                📧 email Me
               </a>
             </div>
           </div>
