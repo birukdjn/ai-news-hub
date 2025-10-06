@@ -44,7 +44,6 @@ export default function AboutPage() {
               
               <a 
                 href="/contact" 
-                target="_blank" 
                 rel="noopener noreferrer"
                 className="px-6 py-3 rounded-lg bg-gray-800 dark:bg-gray-700 text-white font-semibold hover:bg-gray-900 dark:hover:bg-gray-600 transition-all duration-200 shadow-md hover:shadow-lg transform hover:-translate-y-0.5"
               >
