@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Heart, Calendar, ExternalLink, Share2 } from 'lucide-react';
 import { useFavorites } from '../../../hooks/useFavorites';
-import LoadingSpinner from '../../../components/LoadingSpinner';
 import Image from 'next/image';
 
 function decodeSlugToTitle(slug) {
@@ -98,7 +97,17 @@ export default function ArticlePage() {
     }
   };
 
-  if (loading) return <LoadingSpinner />;
+  // Replace LoadingSpinner with inline loading JSX
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-12 h-12 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+          <p className="text-gray-600 dark:text-gray-400">Loading article...</p>
+        </div>
+      </div>
+    );
+  }
 
   if (!article) {
     return (
