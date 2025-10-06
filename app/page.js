@@ -1,26 +1,18 @@
 import ClientHome from './components/ClientHome';
+import { Suspense } from 'react';
 
-// During build, don't fetch - let client handle it
+export const dynamic = 'force-dynamic';
+
+// Avoid server-side fetching on the home page; let the client load data
 async function getInitialArticles() {
-  if (process.env.NODE_ENV === 'production' && process.env.IS_BUILD_TIME) {
-    return [];
-  }
-  
-  try {
-    const res = await fetch('http://localhost:3000/api/news?country=us&page=1', {
-      cache: 'no-store'
-    });
-    
-    if (!res.ok) return [];
-    
-    const data = await res.json();
-    return (data.articles || []).filter(a => a.title !== '[Removed]');
-  } catch (error) {
-    return [];
-  }
+  return [];
 }
 
 export default async function Home() {
   const initialArticles = await getInitialArticles();
-  return <ClientHome initialArticles={initialArticles} />;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-gray-50 dark:bg-gray-900" />}> 
+      <ClientHome initialArticles={initialArticles} />
+    </Suspense>
+  );
 }
