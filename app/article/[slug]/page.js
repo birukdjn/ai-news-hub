@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import DevAISummary from '../../components/DevAISummary';
 import { useParams, useRouter } from 'next/navigation';
 import { ArrowLeft, Heart, Calendar, ExternalLink, Share2 } from 'lucide-react';
 import { useFavorites } from '../../hooks/useFavorites';
@@ -208,6 +209,11 @@ export default function ArticlePage() {
                   <p className="text-green-800 dark:text-green-200 whitespace-pre-line">{aiSummary}</p>
                 </div>
               )}
+            {process.env.NEXT_PUBLIC_DEV_AI_SUMMARY === 'true' && (
+              <div className="mt-4">
+                <DevAISummary article={article} />
+              </div>
+            )}
               <div className="mt-4 flex flex-wrap gap-2">
                 <button onClick={generateTags} className="px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">Generate Tags</button>
                 <button onClick={generateInsight} className="px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600">AI Insight</button>
