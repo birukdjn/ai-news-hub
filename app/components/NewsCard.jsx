@@ -2,8 +2,9 @@
 import { motion } from 'framer-motion';
 import { Heart, Calendar, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 
-export default function NewsCard({ article, isFavorite, onToggleFavorite }) {
+export default function NewsCard({ article, isFavorite, onToggleFavorite, trending = false }) {
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString();
   };
@@ -15,12 +16,24 @@ export default function NewsCard({ article, isFavorite, onToggleFavorite }) {
       transition={{ duration: 0.3 }}
       className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
     >
-      {article.urlToImage && (
-        <img 
-          src={article.urlToImage} 
-          alt={article.title}
-          className="w-full h-48 object-cover"
-        />
+      {article.urlToImage ? (
+        <div className="w-full h-48 relative">
+          <Image
+            src={article.urlToImage}
+            alt={article.title}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover"
+            priority={false}
+          />
+          {trending && (
+            <span className="absolute top-2 left-2 text-xs px-2 py-1 rounded bg-red-600 text-white">🔥 Trending</span>
+          )}
+        </div>
+      ) : (
+        <div className="w-full h-48 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-gray-500">
+          No image
+        </div>
       )}
       
       <div className="p-4">

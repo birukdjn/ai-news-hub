@@ -1,29 +1,25 @@
+import { fetchNewsFromApi } from '../../../lib/newsApi';
+
 export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get('q') || '';
   const category = searchParams.get('category') || '';
   const country = searchParams.get('country') || 'us';
+  const page = searchParams.get('page') || '1';
 
   if (!process.env.NEWSAPI_KEY) {
     return Response.json({ error: 'NewsAPI key not configured' }, { status: 500 });
   }
 
   try {
-    const baseUrl = query 
-      ? 'https://newsapi.org/v2/everything'
-      : 'https://newsapi.org/v2/top-headlines';
-
-    const params = new URLSearchParams({
-      ...(query && { q: query }),
-      ...(category && { category }),
-      ...(!query && { country }),
+    const data = await fetchNewsFromApi({
+      query,
+      category,
+      country,
+      page: Number(page),
+      pageSize: 24,
       apiKey: process.env.NEWSAPI_KEY,
-      pageSize: '30'
     });
-
-    const response = await fetch(`${baseUrl}?${params}`);
-    const data = await response.json();
-
     return Response.json(data);
   } catch (error) {
     console.error('News API error:', error);

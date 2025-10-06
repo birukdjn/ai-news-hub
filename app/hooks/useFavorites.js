@@ -10,6 +10,7 @@ export function useFavorites() {
   }, []);
 
   const addFavorite = (article) => {
+    if (favorites.some(a => a.url === article.url)) return;
     const newFavorites = [...favorites, article];
     setFavorites(newFavorites);
     localStorage.setItem('newsFavorites', JSON.stringify(newFavorites));
